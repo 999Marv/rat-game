@@ -12,7 +12,11 @@ let ratY = blockSize * 5;
 let velocityX = 0;
 let velocityY = 0;
 
-let ratBody = [];
+//counter
+let counter = document.getElementById('counter');
+let score = document.getElementById('score');
+let gameName = document.getElementById('name');
+let textHolder = document.getElementById('text-holding');
 
 //food
 let foodX;
@@ -41,26 +45,14 @@ const update = () => {
   context.fillRect(foodX, foodY, blockSize, blockSize);
 
   if (ratX === foodX && ratY === foodY) {
-    ratBody.push([foodX, foodY]);
+    counter.textContent++;
     placeFood();
-  }
-
-  for (let i = ratBody.length - 1; i > 0; i--) {
-    ratBody[i] = ratBody[i - 1];
-  }
-
-  if (ratBody.length) {
-    ratBody[0] = [ratX, ratY];
   }
 
   context.fillStyle = 'gray';
   ratX += velocityX * blockSize;
   ratY += velocityY * blockSize;
   context.fillRect(ratX, ratY, blockSize, blockSize);
-
-  for (let segment of ratBody) {
-    context.fillRect(segment[0], segment[1], blockSize, blockSize);
-  }
 
   //game over condition
 
@@ -72,15 +64,13 @@ const update = () => {
     ratY > cols * blockSize - 1
   ) {
     gameOver = true;
-    alert('Out of Bounds');
-  }
-
-  //eat itself
-  for (let i = 0; i < ratBody.length; i++) {
-    if (ratX === ratBody[i][0] && ratY === ratBody[i][1]) {
-      gameOver = true;
-      alert('You ate yourself??');
-    }
+    gameName.remove();
+    score.remove();
+    counter.remove();
+    let gameEnd = document.createElement('h1');
+    gameEnd.textContent = 'You lost';
+    gameEnd.style.color = 'red';
+    textHolder.append(gameEnd);
   }
 };
 
