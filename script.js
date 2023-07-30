@@ -23,6 +23,7 @@ let textHolder = document.getElementById('text-holding');
 //food
 let foodX;
 let foodY;
+let cheese;
 
 //game over
 let gameOver = false;
@@ -43,8 +44,13 @@ const update = () => {
   context.fillStyle = 'black';
   context.fillRect(0, 0, board.width, board.height);
 
-  context.fillStyle = 'yellow';
-  context.fillRect(foodX, foodY, blockSize, blockSize);
+  cheese = new Image();
+  cheese.src = './cheese.png';
+  cheese.onload = () => {
+    context.drawImage(cheese, foodX, foodY, blockSize, blockSize);
+  };
+  // context.fillStyle = 'yellow';
+  // context.fillRect(foodX, foodY, blockSize, blockSize);
 
   if (ratX === foodX && ratY === foodY) {
     counter.textContent++;
