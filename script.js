@@ -12,6 +12,8 @@ let ratY = blockSize * 5;
 let velocityX = 0;
 let velocityY = 0;
 
+let ratImg;
+
 //counter
 let counter = document.getElementById('counter');
 let score = document.getElementById('score');
@@ -49,10 +51,17 @@ const update = () => {
     placeFood();
   }
 
-  context.fillStyle = 'gray';
   ratX += velocityX * blockSize;
   ratY += velocityY * blockSize;
-  context.fillRect(ratX, ratY, blockSize, blockSize);
+  ratImg = new Image();
+  ratImg.src = './rat.png';
+  ratImg.onload = () => {
+    context.drawImage(ratImg, ratX, ratY, blockSize, blockSize);
+  };
+  // context.fillStyle = 'gray';
+  // ratX += velocityX * blockSize;
+  // ratY += velocityY * blockSize;
+  // context.fillRect(ratX, ratY, blockSize, blockSize);
 
   //game over condition
 
